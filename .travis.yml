@@ -4,19 +4,19 @@ services:
     - docker
  
 before_install:
-    - docker build -t sergeyalbrant/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t albrants/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run -e CI=true sergeyalbrant/react-test npm test
+    - docker run -e CI=true albrants/react-test npm test
     
 after_success:
-    - docker build -t sergeyalbrant/multi-client ./client
-    - docker build -t sergeyalbrant/multi-nginx ./nginx
-    - docker build -t sergeyalbrant/multi-server ./server
-    - docker build -t sergeyalbrant/multi-worker ./worker
+    - docker build -t albrants/multi-client ./client
+    - docker build -t albrants/multi-nginx ./nginx
+    - docker build -t albrants/multi-server ./server
+    - docker build -t albrants/multi-worker ./worker
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker push sergeyalbrant/multi-client
-    - docker push sergeyalbrant/multi-nginx
-    - docker push sergeyalbrant/multi-server
-    - docker push sergeyalbrant/multi-worker
+    - docker push albrants/multi-client
+    - docker push albrants/multi-nginx
+    - docker push albrants/multi-server
+    - docker push albrants/multi-worker
     
